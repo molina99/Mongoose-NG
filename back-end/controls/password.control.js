@@ -5,14 +5,12 @@ const bcrypt = require('bcrypt')
 
 let authenticate = (req, res, next) => {
     let user = req.body.user || null
-    if (!user || user.pass === '' || !user.pass) {
-        console.log('Usuario inválido')
+    if (!user || user.password === '' || !user.password) {
         return res.status(200).send('Usuario o contraseña inválidos')
     } else {
-        let codificationPass = bcrypt.hashSync(user.pass, bcrypt.genSaltSync(10))
+        let codificationPass = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10))
         if (codificationPass) {
-            req.body.user.pass = codificationPass
-            req.body.user.createAt = new Date()
+            req.body.user.password = codificationPass
             if (req.sessionID) {
                 req.body.user.sessionID = req.sessionID
                 next()

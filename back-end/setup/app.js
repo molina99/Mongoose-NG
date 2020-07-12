@@ -5,14 +5,13 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const passport = require('passport')
 const cors = require('cors')
-const parseUrl = require('parseurl')
-// const connectDB = require('../config/db')
+require('../config/db')
 
 let app = express()
-require('../config/db')
 
 let userRoute = require('../routes/users.route')
 let fileRoute = require('../routes/files.route')
+
 let session = require('express-session')
 let sess = {
     secret: process.env.KEY_SESSION,

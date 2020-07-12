@@ -2,6 +2,7 @@
 'use strict'
 
 const User = require('../models/User')
+const jwt = require('jsonwebtoken')
 
 let postUser = async (req, res) => {
     let user = req.body.user
@@ -67,9 +68,32 @@ let deleteUser = async (req, res) => {
     }
 }
 
+let login = async (req, res) => {
+    let user = req.body.user
+    console.log(user)
+    let userLog = await User.find({email: user.email})
+    console.log(userLog)
+    if (!userLog) {
+        res.send('No existe la cuenta')
+    } else if (user.password === userLog.password) {
+        res.send('Correo o contraseña incorrecta')
+    } else {
+        let token = jwt.sign(user, process.env.KEY_JWT, {
+            algorithm: 'HS256',
+            expiresIn: process.env.TIME
+        })
+        console.log(token)
+    }
+    res.status(200).json({
+        ok: true,
+        user
+    })
+}
+
 module.exports = {
     postUser,
     getUsers,
     putUser,
-    deleteUser
+    deleteUser,
+    login
 }
