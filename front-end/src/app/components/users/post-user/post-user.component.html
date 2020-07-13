@@ -1,0 +1,77 @@
+<div>
+  <app-header></app-header>
+  <app-sidebar></app-sidebar>
+  <div class="flex flex-col items-center flex-1 h-full justify-center px-4 sm:px-0">
+    <div class="flex rounded-lg shadow-lg w-full lg:w-3/4 lg:w-1/2 border-2 lg:ml-64 mt-10">
+      <div class="flex flex-col w-full p-4">
+        <div class="flex flex-col flex-1 justify-center">
+          <h1 class="text-4xl text-center font-thin">
+            Registro del nuevo usuario
+          </h1>
+          <div class="w-full mt-4">
+            <form #userForm="ngForm" class="form-horizontal w-3/4 mx-auto">
+              <div class="flex flex-col mt-4">
+                <label class="font-thin text-xl mr-5">Nombres:</label>
+                <input
+                  class="flex-grow h-8 px-2 border rounded border-grey-400 ml-32"
+                  type="text"
+                  name="names"
+                  placeholder="Ej: Jose Luis"
+                  [(ngModel)]="user.names"
+                />
+                <div class="flex flex-col mt-4">
+                  <label class="font-thin text-xl mr-5">
+                    Apellidos:
+                  </label>
+                  <input
+                    class="flex-grow h-8 px-2 border rounded border-grey-400 ml-32"
+                    type="text"
+                    name="lastNames"
+                    placeholder="Ej: Molina Cañar"
+                    [(ngModel)]="user.lastNames"
+                  />
+                </div>
+
+              </div>
+              <div class="flex flex-col mt-4">
+                <label class="font-thin text-xl mr-5">
+                  Correo electrónico:
+                </label>
+                <input
+                  class="flex-grow h-8 px-2 border rounded border-grey-400 ml-32"
+                  type="text"
+                  name="email"
+                  placeholder="Ej: jose@gmail.com"
+                  [(ngModel)]="user.email"
+                />
+              </div>
+              <div class="flex flex-col mt-4">
+                <label class="font-thin text-xl mr-5">
+                  Contraseña:
+                </label>
+                <input
+                  class="flex-grow h-8 px-2 rounded border border-grey-400 ml-32"
+                  type="password"
+                  name="password"
+                  placeholder="********"
+                  [(ngModel)]="user.password"
+                />
+              </div>
+              <div class="flex flex-col mt-8">
+                <div class="flex">
+                  <button (click)="resetForm(userForm)"
+                    class="mx-auto bg-green-500 hover:bg-green-700 text-white text-sm font-semibold py-2 px-8 rounded">
+                    Cancelar
+                  </button>
+                  <button (click)="postUser()" class="mx-auto bg-blue-500 hover:bg-blue-700 text-white text-sm font-semibold py-2 px-8 rounded">
+                    Crear
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
