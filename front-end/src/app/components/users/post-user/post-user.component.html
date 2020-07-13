@@ -63,7 +63,7 @@
                     class="mx-auto bg-green-500 hover:bg-green-700 text-white text-sm font-semibold py-2 px-8 rounded">
                     Cancelar
                   </button>
-                  <button (click)="postUser()" class="mx-auto bg-blue-500 hover:bg-blue-700 text-white text-sm font-semibold py-2 px-8 rounded">
+                  <button (click)="edit ? putUser() : postUser()" class="mx-auto bg-blue-500 hover:bg-blue-700 text-white text-sm font-semibold py-2 px-8 rounded">
                     Crear
                   </button>
                 </div>

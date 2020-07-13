@@ -44,11 +44,12 @@
           </td>
           <td class="hidden xl:flex px-2 py-8">
             <p>
-              <button
-                class="mt-2 text-gray-200 font-bold py-1 px-3 rounded-full text-xs bg-green-400 hover:bg-green-500">
+              <button [routerLink]="['/form-put-user',user._id]"
+                      class="mt-2 text-gray-200 font-bold py-1 px-3 rounded-full text-xs bg-green-400 hover:bg-green-500">
                 Editar
               </button>
-              <button class="mt-2 text-gray-200 font-bold py-1 px-3 rounded-full text-xs bg-red-400 hover:bg-red-500">
+              <button (click)="deleteUser(user._id)"
+                      class="mt-2 text-gray-200 font-bold py-1 px-3 rounded-full text-xs bg-red-400 hover:bg-red-500">
                 Eliminar
               </button>
             </p>
