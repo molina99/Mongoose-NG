@@ -6,7 +6,6 @@ const app = require('./app')
 const port = process.env.PORT || 3000
 
 let http = require('http').Server(app)
-// let io = require('../controls/socket.control')(http)
 
 http.listen(port, (err) => {
     if (!err) {

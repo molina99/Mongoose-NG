@@ -3,7 +3,6 @@
 const jwt = require('jsonwebtoken')
 
 let authenticate = (req, res, next) => {
-    console.log(req.headers)
     let token = req.headers.authorization || null
     jwt.verify(token, process.env.KEY_JWT, (err, decode) => {
         if (err) {

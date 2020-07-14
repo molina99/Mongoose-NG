@@ -7,11 +7,12 @@ const multiParty = require('connect-multiparty')
 let api = express.Router()
 let filesControl = require('../controls/files.control')
 
-let galleryMiddleware = multiParty({uploadDir: './files/gallery'})
+const authenticateControl = require('../controls/authenticate.control')
+let galleryMiddleware = multiParty({uploadDir: './files'})
 
-api.post('/uploadFile', galleryMiddleware, filesControl.uploadFile)
-api.get('/viewFile/:filePath', filesControl.viewFile)
-api.put('/putFile/:filePath', galleryMiddleware, filesControl.putFile)
-api.delete('/deleteFile/:filePath', filesControl.deleteFile)
+api.post('/uploadFile', [authenticateControl.authenticate, galleryMiddleware], filesControl.uploadFile)
+api.get('/viewFile/:filePath', [authenticateControl.authenticate], filesControl.viewFile)
+api.put('/putFile/:filePath', [authenticateControl.authenticate, galleryMiddleware], filesControl.putFile)
+api.delete('/deleteFile/:filePath', [authenticateControl.authenticate], filesControl.deleteFile)
 
 module.exports = api

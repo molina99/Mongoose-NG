@@ -9,8 +9,12 @@ require('../config/db')
 
 let app = express()
 
-let userRoute = require('../routes/users.route')
-let fileRoute = require('../routes/files.route')
+/**
+ * ROUTES
+ */
+let userRoutes = require('../routes/users.route')
+let fileRoutes = require('../routes/files.route')
+let roomRoutes = require('../routes/rooms.route')
 
 let session = require('express-session')
 let sess = {
@@ -45,7 +49,8 @@ app.use(session(sess))
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.use('/api', userRoute)
-app.use('/api', fileRoute)
+app.use('/api', userRoutes)
+app.use('/api', fileRoutes)
+app.use('/api', roomRoutes)
 
 module.exports = app

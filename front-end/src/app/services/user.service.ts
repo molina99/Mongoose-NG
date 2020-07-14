@@ -16,7 +16,7 @@ export class UserService {
     return this.http.get(`${environment.API_URL}/getUsers`);
   }
 
-  postUser(user: User) {
+  postUser(user: Object) {
     return this.http.post(`${environment.API_URL}/postUser`, user);
   }
 
@@ -25,6 +25,10 @@ export class UserService {
   }
 
   deleteUser(id: String) {
-    return this.http.delete(`${environment.API_URL}/deleteUser/:${id}`);
+    return this.http.delete(`${environment.API_URL}/deleteUser/${id}`);
+  }
+
+  loginUser(user: Object) {
+    return this.http.post(`${environment.API_URL}/login`, user)
   }
 }

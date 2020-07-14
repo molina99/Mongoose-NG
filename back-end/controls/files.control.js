@@ -24,7 +24,7 @@ let uploadFile = async (req, res) => {
         console.log(newFile)
         await newFile.save()
             .then(() => {
-                res.send('Imagen almacenada')
+                res.send('Archivo almacenado')
             }).catch(e => {
                 res.send(e)
             })
@@ -38,7 +38,7 @@ let viewFile = async (req, res) => {
     if (!findFile) {
         res.send('No existe el archivo')
     } else {
-        let dir = `./files/gallery/${filePath}`
+        let dir = `./files/${filePath}`
         fs.exists(dir, (exists) => {
             if (exists) {
                 return res.status(200).sendFile(path.resolve(dir))
@@ -58,7 +58,7 @@ let putFile = async (req, res) => {
     if (!findFile) {
         res.send('No existe el archivo que se quiere modificar')
     } else {
-        let dir = `./files/gallery/${filePath}`
+        let dir = `./files/${filePath}`
         fs.exists(dir, (exist) => {
             if (exist) {
                 fs.unlink(dir, (deleted) => {
@@ -71,7 +71,7 @@ let putFile = async (req, res) => {
                         console.log(newFile)
                         newFile.save()
                             .then(() => {
-                                res.send('Imagen almacenada')
+                                res.send('Archivo almacenado')
                             }).catch(e => {
                             res.send(e)
                         })
@@ -93,7 +93,7 @@ let deleteFile = async (req, res) => {
     let deleteUser = await File.deleteOne({filePath: filePath})
     if (deleteUser) {
         console.log('Eliminado en BD')
-        let dir = `./files/gallery/${filePath}`
+        let dir = `./files/${filePath}`
         fs.unlink(dir, (deleted) => {
             if (!deleted) {
                 return res.status(200).send(`Se eliminó el archivo: ${filePath}`)

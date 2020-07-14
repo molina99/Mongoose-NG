@@ -6,17 +6,15 @@ const jwt = require('jsonwebtoken')
 
 let postUser = async (req, res) => {
     let user = req.body.user
-    console.log(user)
     if (!user.names || !user.lastNames || !user.email || !user.password) {
         res.send('Debe completar todos los campos')
     } else {
         let newUser = new User(user)
-        console.log(newUser)
         await newUser.save()
             .then(() => {
-                res.send('Usuario creado')
+                res.status(200).send('Usuario creado')
             }).catch(e => {
-                res.send(e)
+                res.status(500).send(e)
             })
     }
 }
@@ -70,24 +68,23 @@ let deleteUser = async (req, res) => {
 
 let login = async (req, res) => {
     let user = req.body.user
-    console.log(user)
     let userLog = await User.find({email: user.email})
-    console.log(userLog)
-    if (!userLog) {
-        res.send('No existe la cuenta')
-    } else if (user.password === userLog.password) {
-        res.send('Correo o contraseña incorrecta')
+    if (userLog.length > 0) {
+        if (user.password === userLog[0].password) {
+            let token = jwt.sign(user, process.env.KEY_JWT, {
+                algorithm: 'HS256',
+                expiresIn: parseInt(process.env.TIME)
+            })
+            res.status(200).json({
+                ok: true,
+                user, token
+            })
+        } else {
+            res.status(200).send('Contraseña o correo incorrecto')
+        }
     } else {
-        let token = jwt.sign(user, process.env.KEY_JWT, {
-            algorithm: 'HS256',
-            expiresIn: process.env.TIME
-        })
-        console.log(token)
+        res.status(200).send('La cuenta no existe')
     }
-    res.status(200).json({
-        ok: true,
-        user
-    })
 }
 
 module.exports = {

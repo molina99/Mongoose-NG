@@ -48,17 +48,18 @@ export class PostUserComponent implements OnInit {
   }
 
   postUser() {
-    delete this.user._id;
-
+    let dataUser = {
+      user: this.user
+    }
     console.log(this.user)
-    this.userService.postUser(this.user)
+    this.userService.postUser(dataUser)
       .subscribe(
         res => {
-          console.log(res)
           this.router.navigate(['/users']);
+          console.log(res)
         },
         err => {
-          console.error(err)
+          this.router.navigate(['/users']);
         }
       )
   }
